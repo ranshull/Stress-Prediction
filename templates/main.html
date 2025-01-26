@@ -1,0 +1,316 @@
+<html>
+
+<head>
+    <title>Stress Prediction Form</title>
+  
+    <link rel="stylesheet" type="text/css" href="/static/css/Pstyle.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a40;
+            /* Dark blue background */
+            color: #ffffff;
+            /* White text for readability */
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            margin-top: 20px;
+        }
+
+        .column {
+            flex: 1;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .form-column {
+            background-color: #24305e;
+            /* Slightly lighter blue */
+            border: 1px solid #4a4e69;
+            /* Subtle border */
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .form-column h2 {
+            text-align: center;
+            color: #f8e9a1;
+            /* Highlighted header color */
+        }
+
+        .form-column form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            /* Space between inputs */
+        }
+
+        .form-column label {
+            flex: 1 1 45%;
+            /* Labels take half the width */
+            color: #f8e9a1;
+            /* Highlighted text color for labels */
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-column input {
+            flex: 1 1 45%;
+            /* Inputs take half the width */
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #4a4e69;
+            /* Slight border for inputs */
+            border-radius: 5px;
+            background-color: #1f4068;
+            /* Darker blue background for inputs */
+            color: #ffffff;
+            /* White text for inputs */
+        }
+
+        .form-column input[type="submit"] {
+            background-color: #f76c6c;
+            /* Contrasting red for button */
+            color: white;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            /* Full width button */
+            padding: 12px;
+        }
+
+        .form-column input[type="submit"]:hover {
+            background-color: #f55d5d;
+            /* Darker red on hover */
+        }
+
+        .info-column {
+            background-color: #162447;
+            /* Very dark blue background */
+            border: 1px solid #4a4e69;
+            /* Subtle border */
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .info-column h2 {
+            color: #f8e9a1;
+            /* Highlighted header color */
+        }
+
+        .info-column p {
+            color: #ffffff;
+            /* White text for readability */
+            line-height: 1.6;
+            /* Improve readability */
+
+        }
+
+        .calculation {
+            font-family: 'Courier New', monospace;
+            /* Distinct font for calculations */
+            font-style: italic;
+            /* Make it italic for emphasis */
+            color: #f8e9a1;
+            /* Light yellow for contrast */
+            font-size: 1rem;
+            /* Slightly smaller font size */
+        }
+
+        /* Match input styling for dropdown */
+        #lm_dropdown {
+            flex: 1 1 45%;
+            /* Same size as other inputs */
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #4a4e69;
+            /* Same border style */
+            border-radius: 5px;
+            background-color: #1f4068;
+            /* Same dark blue background */
+            color: #ffffff;
+            /* White text for readability */
+            font-size: 1rem;
+            /* Match input font size */
+            cursor: pointer;
+        }
+
+        /* Hover effect for dropdown */
+        #lm_dropdown:hover {
+            border-color: #f76c6c;
+            /* Highlight on hover */
+        }
+
+        /* Ensure dropdown options are styled */
+        #lm_dropdown option {
+            background-color: #24305e;
+            /* Dropdown options match form style */
+            color: #ffffff;
+            /* White text */
+        }
+
+        /* Match input styling for dropdown */
+        #rem_dropdown {
+            flex: 1 1 45%;
+            /* Same size as other inputs */
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #4a4e69;
+            /* Same border style */
+            border-radius: 5px;
+            background-color: #1f4068;
+            /* Same dark blue background */
+            color: #ffffff;
+            /* White text for readability */
+            font-size: 1rem;
+            /* Match input font size */
+            cursor: pointer;
+        }
+
+        /* Hover effect for dropdown */
+        #rem_dropdown:hover {
+            border-color: #f76c6c;
+            /* Highlight on hover */
+        }
+
+        /* Ensure dropdown options are styled */
+        #rem_dropdown option {
+            background-color: #24305e;
+            /* Dropdown options match form style */
+            color: #ffffff;
+            /* White text */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+       
+        <div class="row">
+            <div class="column form-column">
+                <h2>Stress Prediction Form</h2>
+                <form action="{{ url_for('submit_form') }}" method="post">
+                    <label for="rr">Respiration Rate:</label>
+                    <input type="number" step="0.01" id="rr" name="rr" required><br>
+
+                    <label for="t">Body Temperature (°C):</label>
+                    <input type="number" step="0.1" id="t" name="t" required><br>
+
+                    <label for="lm">Limb Movement Rate:</label>
+                    <select id="lm_dropdown" name="lm_dropdown" onchange="updateLimbMovementRate()" required>
+                        <option value="">Select</option>
+                        <option value="4.0">Low </option>
+                        <option value="55.0">High </option>
+                    </select>
+                    <input type="number" id="lm" name="lm" style="display:none;" required>
+                    <br>
+                    
+                    <label for="bo">Blood Oxygen Level (%):</label>
+                    <input type="number" step="0.1" id="bo" name="bo"><br>
+
+                    <label for="rem">Eye Movement Rate:</label>
+                    <select id="rem_dropdown" name="rem_dropdown" onchange="updateEyeMovementRate()" required>
+                        <option value="">Select</option>
+                        <option value="2.0">Low </option>
+                        <option value="10.0">High</option>
+                    </select>
+                    <input type="number" id="rem" name="rem"  style="display:none;" required>
+                    <br>
+
+
+                    <label for="sr1">Hours of Sleep:</label>
+                    <input type="number" step="0.1" id="sr1" name="sr1" required><br>
+
+                    <label for="hr">Heart Rate:</label>
+                    <input type="number" step="1" id="hr" name="hr" required><br>
+
+                    <input type="submit" value="Predict Stress Level">
+                </form>
+            </div>
+            <div class="column info-column">
+                <h2>Information About Inputs</h2>
+                <p>
+                    <b>Respiration Rate:</b>
+                    The number of breaths taken per minute.
+                    <span class="calculation">Normal: 12-20 breaths. High: Above 25 (may indicate stress). Low: Below 10
+                        (could indicate other health issues).</span>
+                </p>
+                <p>
+                    <b>Body Temperature:</b>
+                    Indicates physiological activity.
+                    <span class="calculation">Normal: 36.5-37.5°C. High: Above 38°C (may result from stress or illness).
+                        Low: Below 36°C (may indicate fatigue).</span>
+                </p>
+                <p>
+                    <b>Limb Movement Rate:</b>
+                    Restlessness or excessive movement.
+                    <span class="calculation">Normal: Minimal movement during rest. High: Frequent movement (may
+                        indicate restlessness or stress).</span>
+                </p>
+                <p>
+                    <b>Blood Oxygen Level:</b>
+                    The percentage of oxygen in your blood.
+                    <span class="calculation">Normal: 95%-100%. Low: Below 90% (may indicate physical strain or
+                        stress-related breathing issues).</span>
+                </p>
+                <p>
+                    <b>Eye Movement Rate:</b>
+                    Reflects emotional regulation.
+                    <span class="calculation">Normal during REM sleep. Increased movement may indicate disturbed sleep
+                        or stress.</span>
+                </p>
+                <p>
+                    <b>Hours of Sleep:</b>
+                    Sleep duration is critical.
+                    <span class="calculation">Normal: 7-9 hours. Low: Below 6 hours (linked to stress and
+                        fatigue).</span>
+                </p>
+                <p>
+                    <b>Heart Rate:</b>
+                    Indicates physical and emotional state.
+                    <span class="calculation">Normal: 60-100 beats per minute. High: Above 100 (may indicate stress or
+                        anxiety).</span>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function updateLimbMovementRate() {
+            const dropdown = document.getElementById("lm_dropdown");
+            const hiddenInput = document.getElementById("lm");
+
+            // Set the value of the hidden input to match the dropdown
+            hiddenInput.value = parseFloat(dropdown.value)
+        }
+
+
+
+        function updateEyeMovementRate() {
+            const dropdown = document.getElementById("rem_dropdown");
+            const hiddenInput = document.getElementById("rem");
+
+            // Set the value of the hidden input to match the dropdown
+            hiddenInput.value = parseFloat(dropdown.value)
+        }
+
+
+    </script>
+
+
+</body>
+
+</html>

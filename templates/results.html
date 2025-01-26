@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stress Prediction Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h2 {
+            color: #4CAF50;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .recommendation-box {
+            background-color: #ffffff;
+            border: 2px solid #4CAF50;
+            border-radius: 8px;
+            padding: 20px;
+            width: 80%;
+            max-width: 600px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .recommendation-box h3 {
+            color: #333;
+        }
+
+        .recommendation-box p {
+            color: #555;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: white;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .tips-section {
+            margin-top: 20px;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            width: 80%;
+            max-width: 600px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .tips-section h3 {
+            color: #4CAF50;
+            margin-bottom: 10px;
+        }
+
+        .tips-section ul {
+            margin: 0;
+            padding: 0;
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+
+        .tips-section ul li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Predicted Stress Level: {{ stress_category }}</h2>
+    <p>Your predicted stress level is <strong>{{ prediction }}</strong>, which is classified as <strong>{{ stress_category }}</strong>.</p>
+
+    <div class="recommendation-box">
+        <h3>Recommended Therapy</h3>
+        <p>Based on your stress level, we recommend the following therapy:</p>
+        <a href="{{ therapy_link }}">
+            <button>Go to {{ therapy_name }} Therapy</button>
+        </a>
+    </div>
+
+    <div class="tips-section">
+        <h3>Quick Stress Management Tips</h3>
+        <ul>
+            <li><strong>Deep Breathing:</strong> Take slow, deep breaths for 5 minutes to calm your mind.</li>
+            <li><strong>Physical Activity:</strong> Engage in a quick walk or light exercise to release tension.</li>
+            <li><strong>Mindfulness:</strong> Practice meditation or focus on your surroundings for a few moments.</li>
+            <li><strong>Stay Hydrated:</strong> Drink a glass of water to refresh your body and mind.</li>
+            <li><strong>Reach Out:</strong> Talk to a friend or loved one about your feelings.</li>
+        </ul>
+    </div>
+</body>
+</html>
