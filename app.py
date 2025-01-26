@@ -113,11 +113,12 @@ def submit_form():
 # Ensure routes for therapies are defined
 @app.route('/yoga_therapy')
 def yoga_therapy():
-    return "Yoga Therapy Page"
+    return  render_template('yogatherapy.html')
 
 @app.route('/audio_therapy')
 def audio_therapy():
-    return "Audio Therapy Page"
+    return  render_template('audioTherapy.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
